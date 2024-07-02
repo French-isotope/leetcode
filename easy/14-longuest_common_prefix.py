@@ -20,10 +20,13 @@ def longestCommonPrefix(strs):
 
     for index_strs, letter in enumerate(shortest_str):
         for word in strs[1:]:
+            if word == shortest_str:
+                continue
+            if index_strs == len(shortest_str):
+                return shortest_str
             if word[index_strs] != letter:
-                result = shortest_str[:index_strs]
-                return result
-    return result
+                return shortest_str[:index_strs]
+    return shortest_str
 
 
 print(longestCommonPrefix(strs1))
