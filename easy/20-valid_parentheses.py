@@ -57,17 +57,18 @@ def valid_parenthesis(s):
 
     stack = []
     existing_possibilities = {"()", "[]", "{}"}
-    result = bool()
-    if len(s) < 2:
+    result = True
+    if len(s) < 2 or not any(letter in s for letter in ")]}"):
         return False
     for index, letter in enumerate(s):
-        print(f'index: {index}, stack: {stack}, letter: {letter}')
-        if letter in "([{":
+        if letter in "([{" and index < len(s)-1:
             stack.append(letter)
+            print(f'1 | index: {index}, stack: {stack}, letter: {letter}')
             continue
 #        if stack == [] and letter in ")]}":
 #            result = False
         elif stack != [] and f'{stack.pop()}{letter}' in existing_possibilities:
+            print(f'2 | index: {index}, stack: {stack}, letter: {letter}')
             result = result and True
         else:
             return False
@@ -87,6 +88,13 @@ s9 = "(){}}{"
 s10 = "[]"
 s11 = "{}"
 s12 = "((" 
+s13 = "{[]}"
+s14 = "([]){"
+s15 = "([]"
+
+
+
+
 
 
 #print(valid_parenthesis(s9))
@@ -101,28 +109,35 @@ s12 = "(("
 import sys
 import traceback
 
-try:
-    assert valid_parenthesis(s0) == False
-    assert valid_parenthesis(s1) == False
-    assert valid_parenthesis(s2) == True
-    assert valid_parenthesis(s3) == False
-    assert valid_parenthesis(s4) == False
-    assert valid_parenthesis(s5) == True
-    assert valid_parenthesis(s6) == False
-    assert valid_parenthesis(s7) == False
-    assert valid_parenthesis(s8) == False
-    assert valid_parenthesis(s9) == False
-    assert valid_parenthesis(s10) == True
-    assert valid_parenthesis(s11) == True
-    assert valid_parenthesis(s12) == False
+print(valid_parenthesis(s13))
 
-except AssertionError:
-    _, _, tb = sys.exc_info()
-    traceback.print_tb(tb) # Fixed format
-    tb_info = traceback.extract_tb(tb)
-    filename, line, func, text = tb_info[-1]
+cond = True
 
-    print('An error occurred on line {} in statement {}'.format(line, text))
+if cond:
+    try:
+        assert valid_parenthesis(s0) == False
+        assert valid_parenthesis(s1) == False
+        assert valid_parenthesis(s2) == True
+        assert valid_parenthesis(s3) == False
+        assert valid_parenthesis(s4) == False
+        assert valid_parenthesis(s5) == True
+        assert valid_parenthesis(s6) == False
+        assert valid_parenthesis(s7) == False
+        assert valid_parenthesis(s8) == False
+        assert valid_parenthesis(s9) == False
+        assert valid_parenthesis(s10) == True
+        assert valid_parenthesis(s11) == True
+        assert valid_parenthesis(s12) == False
+        assert valid_parenthesis(s13) == True
+        assert valid_parenthesis(s14) == False
+        assert valid_parenthesis(s15) == False
+    except AssertionError:
+        _, _, tb = sys.exc_info()
+        traceback.print_tb(tb) # Fixed format
+        tb_info = traceback.extract_tb(tb)
+        filename, line, func, text = tb_info[-1]
+
+        print('An error occurred on line {} in statement {}'.format(line, text))
 
 
 #assert lint_the_strings(s0) == True
